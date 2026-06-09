@@ -8,13 +8,17 @@ p{
     font-style: italic;
 }
 img{
-    height: 500px;
+    height: 500px;;
     width: 500px;
-    border-radius: 500px;
-    
+}
+@media(max-width:600px){
+    img{
+        height: auto;
+        width: 100%;
+    }
 }
 video{
-    height: 600px;
+    width: 100%;
 }
 ol{
     list-style-type: upper-alpha;
@@ -37,9 +41,15 @@ h1{
 }
 nav{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 20px;
-
+}
+@media(min-width:1024px){
+    nav{
+        display: flex;
+        flex-direction: row;
+        gap:50px;
+    }
 }
 #p1{
     font-style: italic;
@@ -50,4 +60,36 @@ nav{
 .group{
     font-size: x-large;
 }
+.grid{
+
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+@media(min-width:1024px){
+    .grid{
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+    }
+}
+    
+}
+
+/* #one{
+    grid-row: 1/2;
+}
+#two{
+    grid-row: 1/2;
+}
+#three{
+    grid-row: 1/2;
+}
+#four{
+    grid-row: 2/3;
+}
+#five{
+    grid-row: 2/3;
+}
+#six{
+    grid-row: 2/3;
+} */
 
