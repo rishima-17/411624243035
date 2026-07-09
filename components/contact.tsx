@@ -1,5 +1,5 @@
 'use client'
-
+import emailjs from "@emailjs/browser";
 import { Mail, Phone, Check } from 'lucide-react'
 import { useState } from 'react'
 
@@ -19,19 +19,36 @@ export function Contact() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    window.location.href = `mailto:rishimair1529@gmail.com?subject=Message from ${formData.name}&body=${formData.message}`
-    
-    // Show success message
-    setIsSubmitted(true)
-    setFormData({ name: '', email: '', message: '' })
-    
-    // Hide success message after 5 seconds
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    await emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+      {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      },
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    );
+
+    setIsSubmitted(true);
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+
     setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
+      setIsSubmitted(false);
+    }, 5000);
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send message. Please try again.");
   }
+};
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-muted/30 to-background">
